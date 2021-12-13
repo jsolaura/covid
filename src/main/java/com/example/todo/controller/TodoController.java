@@ -42,7 +42,7 @@ public class TodoController {
         return ResponseEntity.ok(new TodoDTO(result));
     }
 
-    @GetMapping("/api/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<TodoDTO> readOne(@PathVariable Long id) {
 
         TodoEntity result = this.todoService.searchById(id);
@@ -63,7 +63,7 @@ public class TodoController {
         return ResponseEntity.ok(response);
     }
 
-    @PatchMapping("/api/{id}")
+    @PutMapping("{id}")
     public ResponseEntity<TodoDTO> update(@PathVariable Long id, @RequestBody TodoDTO todoDTO) {
 
         TodoEntity result = this.todoService.updateById(id, todoDTO);
@@ -71,12 +71,13 @@ public class TodoController {
         return ResponseEntity.ok(new TodoDTO(result));
     }
 
-    @DeleteMapping("/api/{id}")
+    @DeleteMapping("{id}")
     public ResponseEntity<?> deleteOne(@PathVariable Long id) {
 
         this.todoService.deleteById(id);
 
         return ResponseEntity.ok().build();
+
     }
 
     @DeleteMapping

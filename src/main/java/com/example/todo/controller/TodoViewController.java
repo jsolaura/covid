@@ -22,7 +22,7 @@ public class TodoViewController {
     @GetMapping("/")
     public String index(Model model) {
         List<TodoDTO> todoList = todoService.getTodoList();
-        model.addAttribute("todo", todoList);
+        model.addAttribute("todos", todoList);
 
         return "index";
     }

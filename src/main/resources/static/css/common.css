@@ -58,22 +58,31 @@ header nav {
     flex-direction: column;
 }
 
-.check {
+.checkBox {
     display: flex;
     align-items: center;
     width: 100%;
 }
 
-.check label {
+.number {
+    padding-left: 1rem;
+    font-weight: 500;
+}
+
+.checkBox label {
     cursor: pointer;
 }
 
-.fa-check.active {
+.checkBox input {
+    display: none;
+}
+
+.fa-check.on {
     color: red;
 }
 
 .askBox span,
-.check label {
+.checkBox label {
     width: 50px;
     padding: 1rem;
 }
@@ -106,15 +115,6 @@ header nav {
     cursor: pointer;
 }
 
-#completeBtn {
-    display: none;
-}
-
-#completeBtn:checked i {
-    color: red;
-    font-size: 1.3rem;
-
-}
 
 #deleteBtn i {
     transition: all 0.35s;

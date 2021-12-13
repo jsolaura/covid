@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/common.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://kit.fontawesome.com/214e267407.js" crossorigin="anonymous"></script>
 </head>
@@ -15,17 +16,17 @@
                 <span id="saveBtn"><i class="fas fa-list-ul"></i></span>
                 <input type="text" name="list" id="list" placeholder="What needs to be done?">
             </div>
-            <ul class="task">
-                <li class="check">
+            <ul class="task" >
+                <li class="checkBox" th:each="todo, i : ${todos}">
                     <input type="hidden" id="id" th:value="${todo.id}">
-                    <p th:text="${todo.order}"></p>
-                    <label th:class="${todo.completed ? 'active' : ''}">
+                    <p class="number" th:text="${i.index+1}"></p>
+                    <label class="completeBtn" th:classappend="${todo.completed ? 'on' : ''}">
                         <i class="fas fa-check"></i>
-                        <input id="completeBtn" class="check" type="checkbox" />
+                        <input th:onclick="|index.completeById(this.checked)|" th:class="'check ' + 'check'+${todo.id}" type="checkbox" />
                     </label>
                     <div class="content">
-                        <span th:texr="${todo.title}"></span>
-                        <button id="deleteBtn" type="button">
+                        <span th:text="${todo.title}"></span>
+                        <button th:onclick="|index.deleteById(${todo.id})|" class="deleteBtn" type="button">
                             <i class="fas fa-backspace"></i>
                         </button>
                     </div>

@@ -64,6 +64,7 @@ public class TodoService {
 
         for (TodoEntity todoEntity : todoEntities) {
             TodoDTO todoDTO = TodoDTO.builder()
+                    .id(todoEntity.getId())
                     .title(todoEntity.getTitle())
                     .order(todoEntity.getOrder())
                     .completed(todoEntity.getCompleted())
