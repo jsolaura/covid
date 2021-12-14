@@ -2,13 +2,15 @@
 
 let index = {
     init: function () {
+        this.activeNum();
+        this.displayControl();
         $("#list").on("keydown", (e) => {
-            if(e.keyCode == 13) {
+            if (e.keyCode == 13) {
                 this.save();
                 $("#list").val("");
                 $("#list").focus();
             }
-        })
+        });
     },
 
     save: function () {
@@ -39,8 +41,6 @@ let index = {
     },
 
     deleteById: function (id) {
-        // let id = $(".id").val();
-        console.log(id)
         $.ajax({
             type: "DELETE",
             url: "/api/" + id,
@@ -55,13 +55,12 @@ let index = {
     },
 
     completeById: function (id, index) {
-        // let id = $("#id").val();
-        let taskCompleted = index.checked;
+        let taskCompleted = index.checked == true;
         let data = {
             id: id,
             completed: taskCompleted,
         }
-        console.log(id)
+        console.log(id , taskCompleted)
         $.ajax({
             type: "PUT",
             url: "/api/" + id,
@@ -70,12 +69,13 @@ let index = {
             contentType: "application/json",
             success: function (res) {
                 alert("완료!");
-                if (taskCompleted == false) {
-                    index.previousElementSibling.classList.remove("on");
-                    index.classList.remove("completedTrue");
-                } else {
+                if (taskCompleted) {
                     index.previousElementSibling.classList.add("on");
                     index.classList.add("completedTrue");
+                    return !taskCompleted;
+                } else if (!taskCompleted) {
+                    index.previousElementSibling.classList.remove("on");
+                    index.classList.remove("completedTrue");
                 }
                 location.reload();
             },
@@ -83,7 +83,42 @@ let index = {
                 alert(JSON.stringify(err));
             }
         });
+    },
 
+    activeNum: function () {
+        const num = $(".activeNum");
+        let task = $(".off").length;
+        num.html(task);
+    },
+
+    displayControl: function () {
+        const taskList = $(".task");
+        let list = taskList.find(".on").parent();
+        let hideList = taskList.find(".off").parent();
+
+        $(".all").on("click", () => {
+            hideList.show();
+            list.show();
+        })
+
+        $(".activeBtn").on("click", () => {
+            if(taskList.children()) {
+                let list = taskList.find(".off").parent();
+                let hideList = taskList.find(".on").parent();
+                hideList.hide();
+                list.show();
+            } else {
+                alert("Everything were clear! \n Make more stuff!")
+            }
+        })
+        $(".completeBtn").on("click", () => {
+            if(taskList.children()) {
+                hideList.hide();
+                list.show();
+            } else {
+                alert("Have something! \n Do some stuff!")
+            }
+        })
     },
 
 }

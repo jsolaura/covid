@@ -53,9 +53,12 @@ header nav {
 }
 
 .task {
+    position: relative;
+    z-index: 100;
     border-bottom: 1px solid #999;
     display: flex;
     flex-direction: column;
+    background: #ffffff;
 }
 
 .checkBox {
@@ -82,7 +85,7 @@ header nav {
     display: none;
 }
 
-.fa-check.on {
+.checkBox label.on i {
     color: red;
 }
 
@@ -111,7 +114,7 @@ header nav {
     justify-content: space-between;
 }
 
-#deleteBtn, #completeBtn {
+.deleteBtn, #completeBtn {
     outline: none;
     border: none;
     background: none;
@@ -121,16 +124,16 @@ header nav {
 }
 
 
-#deleteBtn i {
+.deleteBtn i {
     transition: all 0.35s;
     font-size: 1.2rem;
 }
 
-.content:hover #deleteBtn {
+.content:hover .deleteBtn {
     opacity: 1;
 }
 
-#deleteBtn:hover i {
+.deleteBtn:hover i {
     transform: scale(1.1);
 }
 
@@ -138,23 +141,39 @@ header nav {
     text-align: left                 ;
 }
 
+.wrapper {
+    position: relative;
+}
 
 .status {
     width: 450px;
     margin: 0 auto;
-    border-bottom: none;
-    padding: 1rem 0.2rem;
+    padding: 1rem 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid #ccc;
+    background: #eee;
+    transform: translateY(-40%);
+    transition: all 0.35s;
+}
 
+.status:hover {
+    transform: translateY(0);
 }
 
 .active {
-    margin: 0 auto;
     display: flex;
     align-items: center;
 }
 
 .active button {
     margin: 0.5rem;
+    padding: 0.5rem;
+    outline: none;
+    background: none;
+    border-radius: 10px;
+    border: 1px solid #999;
+    background: #fff;
     cursor: pointer;
 }
 

@@ -14,16 +14,16 @@
         <div class="container">
             <div class="askBox">
                 <span id="saveBtn" th:onclick="|index.save(this)|"><i class="fas fa-list-ul"></i></span>
-                <input type="text" name="list" id="list" placeholder="What needs to be done?">
+                <input type="text" name="list" id="list" placeholder="내가 해야할 일은 !!?">
             </div>
             <ul class="task" >
                 <li class="checkBox" th:each="todo, i : ${todos}">
                     <input type="hidden" id="id" th:value="${todo.id}">
-                    <p class="number" th:text="${i.index+1}"></p>
-                    <label for="checkbox" class="completeBtn">
-                        <i th:classappend="${todo.completed ? 'on' : ''}" class="fas fa-check"></i>
+<!--                    <p class="number" th:text="${i.index+1}"></p>-->
+                    <label th:for="'check'+${todo.id}" class="completeBtn" th:classappend="${todo.completed ? 'on' : 'off'}">
+                        <i class="fas fa-check"></i>
                     </label>
-                    <input id="checkbox" th:class="'check ' + 'check'+${todo.id}"  type="checkbox"  th:onclick="|index.completeById(${todo.id}, this)|"/>
+                    <input th:id="'check'+${todo.id}" th:class="check" type="checkbox" th:onclick="|index.completeById(${todo.id}, this)|"/>
                     <div id="content" th:class="'content '+ 'content'+${todo.id}">
                         <span class="title" th:text="${todo.title}"></span>
                         <button th:onclick="|index.deleteById(${todo.id})|" class="deleteBtn" type="button">
@@ -34,14 +34,15 @@
             </ul>
         </div>
         <div class="status">
-            <span><strong>1</strong> item left</span>
+            <span><strong class="activeNum"></strong> 개 남음</span>
             <div class="active">
-                <button class="all" type="button">ALL</button>
-                <button type="button">ACTIVE</button>
-                <button type="button">COMPLETED</button>
+                <button class="all" type="button">모두보여줘</button>
+                <button class="activeBtn" type="button" >해야할 일</button>
+                <button class="completeBtn" type="button" >다 했다</button>
             </div>
         </div>
     </div>
+<!--    <div></div>-->
     <footer th:insert="layout/footer.html" id="footer"></footer>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script th:src="@{/js/todoList.js}"></script>
