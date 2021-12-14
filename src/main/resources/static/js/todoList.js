@@ -2,41 +2,24 @@
 
 let index = {
     init: function () {
-        $("#saveBtn").on("click", () => {
-            this.save();
-            $(".content").show();
-            console.log("???")
-
-        })
         $("#list").on("keydown", (e) => {
             if(e.keyCode == 13) {
                 this.save();
+                $("#list").val("");
                 $("#list").focus();
-                $(".content").show();
-                // e.preventDefault();
             }
         })
-
-        // $(".deleteBtn").on("click", this.deleteById)
-        // $(".completeBtn").forEach( function (btn, index) {
-        //     btn.on("click", this.complete);
-        // })
-        // let completeBtn = $(".check");
-        // for(let i=0; i<completeBtn.length; i++) {
-        //     completeBtn[i].addEventListener("click", () => {
-        //         this.completeById();
-        //         console.log(this)
-        //
-        //     })
-        // }
     },
 
     save: function () {
+        let id = $("#id").val();
         let taskInput = $("#list").val();
+        // let content = document.querySelector("content"+id);
+
         let data = {
+            id: id,
             title: taskInput,
         }
-
         $.ajax({
             type: "POST",
             url: "/api",
@@ -44,10 +27,13 @@ let index = {
             dataType: "json",
             contentType: "application/json",
             success: function (res) {
-                // alert("추가 완료!");
+                alert("추가 완료!");
+                location.reload();
+
             },
             error: function (err) {
                 alert(JSON.stringify(err));
+
             }
         });
     },
@@ -60,6 +46,7 @@ let index = {
             url: "/api/" + id,
             success: function (res) {
                 alert("삭제 완료!");
+                location.reload();
             },
             error: function (err) {
                 alert(JSON.stringify(err));
@@ -67,17 +54,12 @@ let index = {
         });
     },
 
-    completeById: function (el) {
-        let id = $("#id").val();
-        let taskCompleted = el;
+    completeById: function (id, index) {
+        // let id = $("#id").val();
+        let taskCompleted = index.checked;
         let data = {
+            id: id,
             completed: taskCompleted,
-        }
-
-        if(taskCompleted === false) {
-            $(".fa-check").removeClass("on");
-        } else {
-            $(".fa-check").addClass("on");
         }
         console.log(id)
         $.ajax({
@@ -88,11 +70,20 @@ let index = {
             contentType: "application/json",
             success: function (res) {
                 alert("완료!");
+                if (taskCompleted == false) {
+                    index.previousElementSibling.classList.remove("on");
+                    index.classList.remove("completedTrue");
+                } else {
+                    index.previousElementSibling.classList.add("on");
+                    index.classList.add("completedTrue");
+                }
+                location.reload();
             },
             error: function (err) {
                 alert(JSON.stringify(err));
             }
-        })
+        });
+
     },
 
 }

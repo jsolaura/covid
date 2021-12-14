@@ -25,6 +25,5 @@ public class TodoEntity {
     @Column(nullable = false, name = "todoOrder")
     private Long order;
 
-    @Column(nullable = false)
-    private Boolean completed;
+    private boolean completed;
 }

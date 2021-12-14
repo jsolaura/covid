@@ -21,7 +21,7 @@ public class TodoDTO {
         this.id = todoEntity.getId();
         this.title = todoEntity.getTitle();
         this.order = todoEntity.getOrder();
-        this.completed = todoEntity.getCompleted();
+        this.completed = todoEntity.isCompleted();
 
         this.url = "http://localhost:8080/" + this.id;
     }

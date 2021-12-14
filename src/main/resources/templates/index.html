@@ -13,19 +13,21 @@
         <h1>TODO LIST</h1>
         <div class="container">
             <div class="askBox">
-                <span id="saveBtn"><i class="fas fa-list-ul"></i></span>
+                <span id="saveBtn" th:onclick="|index.save(this)|"><i class="fas fa-list-ul"></i></span>
                 <input type="text" name="list" id="list" placeholder="What needs to be done?">
             </div>
             <ul class="task" >
                 <li class="checkBox" th:each="todo, i : ${todos}">
                     <input type="hidden" id="id" th:value="${todo.id}">
                     <p class="number" th:text="${i.index+1}"></p>
-                    <label class="completeBtn" th:classappend="${todo.completed ? 'on' : ''}">
-                        <i class="fas fa-check"></i>
-                        <input th:onclick="|index.completeById(this.checked)|" th:class="'check ' + 'check'+${todo.id}" type="checkbox" />
+                    <label for="check" class="completeBtn">
+                        <i th:classappend="${todo.completed ? 'on' : ''}" class="fas fa-check"></i>
                     </label>
-                    <div class="content">
-                        <span th:text="${todo.title}"></span>
+
+                    <input th:class="'check ' + 'check'+${todo.id}"  type="checkbox"  th:onclick="|index.completeById(${todo.id}, this)|"/>
+
+                    <div id="content" th:class="'content '+ 'content'+${todo.id}">
+                        <span class="title" th:text="${todo.title}"></span>
                         <button th:onclick="|index.deleteById(${todo.id})|" class="deleteBtn" type="button">
                             <i class="fas fa-backspace"></i>
                         </button>

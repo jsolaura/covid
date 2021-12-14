@@ -46,7 +46,6 @@ public class TodoService {
         if (todoDTO.getCompleted() != null) {
             todoEntity.setCompleted(todoDTO.getCompleted());
         }
-
         return this.todoRepository.save(todoEntity);
     }
 
@@ -67,7 +66,7 @@ public class TodoService {
                     .id(todoEntity.getId())
                     .title(todoEntity.getTitle())
                     .order(todoEntity.getOrder())
-                    .completed(todoEntity.getCompleted())
+                    .completed(todoEntity.isCompleted())
                     .build();
             todoDTOList.add(todoDTO);
         }
