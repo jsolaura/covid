@@ -20,12 +20,10 @@
                 <li class="checkBox" th:each="todo, i : ${todos}">
                     <input type="hidden" id="id" th:value="${todo.id}">
                     <p class="number" th:text="${i.index+1}"></p>
-                    <label for="check" class="completeBtn">
+                    <label for="checkbox" class="completeBtn">
                         <i th:classappend="${todo.completed ? 'on' : ''}" class="fas fa-check"></i>
                     </label>
-
-                    <input th:class="'check ' + 'check'+${todo.id}"  type="checkbox"  th:onclick="|index.completeById(${todo.id}, this)|"/>
-
+                    <input id="checkbox" th:class="'check ' + 'check'+${todo.id}"  type="checkbox"  th:onclick="|index.completeById(${todo.id}, this)|"/>
                     <div id="content" th:class="'content '+ 'content'+${todo.id}">
                         <span class="title" th:text="${todo.title}"></span>
                         <button th:onclick="|index.deleteById(${todo.id})|" class="deleteBtn" type="button">
