@@ -1,5 +1,4 @@
-package com.example.todo.model;
-
+package com.example.covid.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,17 +12,13 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "todo")
-public class TodoEntity {
+@Table(name = "covid")
+public class Covid {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long seq;
 
-    @Column(nullable = false)
-    private String title;
-
-    @Column(nullable = false, name = "todoOrder")
-    private Long order;
-
-    private boolean completed;
+    private String createDate;  // 기준일
+    private Long deathCnt;      // 사망자수
+    private Long decideCnt;     // 누적 확진자수
 }
